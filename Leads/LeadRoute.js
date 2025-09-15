@@ -4,7 +4,7 @@ import { validateToken } from "../middleware/validation.js";
 
 const router=express.Router();
 
-router.post("/addlead", validateToken ,async (req, res) => {
+router.post("/addlead" ,async (req, res) => {
     try {
       const {
         first_name,
@@ -60,7 +60,7 @@ router.post("/addlead", validateToken ,async (req, res) => {
     }
   });
 
-  router.get("/getleads", validateToken ,async (req, res) => {
+  router.get("/getleads" ,async (req, res) => {
     try {
       let { page = 1, limit = 20 } = req.query;
   
@@ -93,7 +93,7 @@ router.post("/addlead", validateToken ,async (req, res) => {
   });
   
 
-  router.get("/getlead/:id", validateToken , async (req, res) => {
+  router.get("/getlead/:id", async (req, res) => {
     try {
       const lead = await LeadModel.findById(req.params.id);
       if (!lead) {
@@ -105,7 +105,7 @@ router.post("/addlead", validateToken ,async (req, res) => {
     }
   });
 
-  router.put("/editlead/:id",validateToken, async (req, res) => {
+  router.put("/editlead/:id", async (req, res) => {
     try {
       const updatedLead = await LeadModel.findByIdAndUpdate(
         req.params.id,
@@ -127,7 +127,7 @@ router.post("/addlead", validateToken ,async (req, res) => {
     }
   });
 
-  router.delete("/deletelead/:id",validateToken, async (req, res) => {
+  router.delete("/deletelead/:id", async (req, res) => {
     try {
       const deletedLead = await LeadModel.findByIdAndDelete(req.params.id);
   
@@ -147,7 +147,7 @@ router.post("/addlead", validateToken ,async (req, res) => {
 
  // backend/routes/leads.js
 
-router.get("/search",validateToken, async (req, res) => {
+router.get("/search", async (req, res) => {
   try {
     const {
       q,
