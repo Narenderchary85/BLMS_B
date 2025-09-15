@@ -19,12 +19,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-mongoose.connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  .then(() => console.log("DB connected"))
-  .catch(err => console.error("DB connection error:", err.message));
+mongoose.connect(process.env.MONGO_URL)
+  .then(() => console.log('DB connected'))
+  .catch(err => console.error(err));
+
 
 app.use("/auth",AuthRoute)
 app.use("/leads",LeadRoute)
