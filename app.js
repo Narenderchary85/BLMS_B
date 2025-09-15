@@ -7,25 +7,29 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 
 const app = express();
-const port = 1000;
+const port = process.env.PORT || 1000;
 
 dotenv.config();
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: process.env.FRONTEND_URL || "http://localhost:5173",
     credentials: true
 }));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
+
 mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
-  }).then(() => console.log('DB connected'));
+    useUnifiedTopology: true
+  })
+  .then(() => console.log("DB connected"))
+  .catch(err => console.error("DB connection error:", err.message));
 
 app.use("/auth",AuthRoute)
 app.use("/leads",LeadRoute)
 
 app.listen(port, () => {
-    console.log(`Server running on http://localhost:${process.env.PORT}`);
+    console.log(`Server running on http://localhost:${port}`);
 });
   
